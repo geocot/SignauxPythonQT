@@ -1,8 +1,10 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import qApp
+
 
 class Ui_fen2(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, usager):
         QtWidgets.QWidget.__init__(self)
         self.setObjectName("Fen2")
         self.resize(371, 183)
@@ -11,6 +13,7 @@ class Ui_fen2(QtWidgets.QWidget):
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
+        self.buttonBox.clicked.connect(qApp.quit)
         self.labelNom = QtWidgets.QLabel(self)
         self.labelNom.setGeometry(QtCore.QRect(20, 10, 271, 71))
         font = QtGui.QFont()
@@ -18,7 +21,7 @@ class Ui_fen2(QtWidgets.QWidget):
         self.labelNom.setFont(font)
         self.labelNom.setObjectName("labelNom")
         self.setWindowTitle("Dialog")
-        self.labelNom.setText("Usager")
+        self.labelNom.setText("Usager: " + usager)
 
 class Ui_fen1(QtWidgets.QWidget):
 
@@ -71,8 +74,8 @@ class Controller:
         self.windowF1.show()
 
 
-    def showFen2(self, *args):
-        self.windowF2 = Ui_fen2()
+    def showFen2(self, user, *args): #Args permet d'ajouter ce que l'on veut. Ici c'est le str du signal
+        self.windowF2 = Ui_fen2(user)
         self.windowF1.close()
         self.windowF2.show()
 
